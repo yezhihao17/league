@@ -1,6 +1,6 @@
 .side-bar {
   display: flex;
-  width: 90px;
+  width: 180px;
   height: 100%;
   overflow-y: scroll;
   border-right: 1px solid #eee;
@@ -11,7 +11,7 @@
 
   li {
     box-sizing: border-box;
-    padding: 20px 15px;
+    padding: 40px 30px;
   }
   .active {
     background-color: #e54d42;
