@@ -2,7 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+// import Tabbar from './components/tabbar';
 import * as serviceWorker from './serviceWorker';
+import './index.scss';
+import 'lib-flexible';
 
 ReactDOM.render(<App />, document.getElementById('root'));
 

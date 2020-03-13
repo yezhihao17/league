@@ -1,0 +1,48 @@
+.content {
+  display: flex;
+  height: 100vh;
+  padding: 49px 0;
+  box-sizing: border-box;
+
+  .wrapper {
+    flex: 1;
+    height: 100%;
+    overflow: scroll;
+  }
+
+  .container {
+    padding-top: 10px;
+
+    .item {
+      float: left;
+      width: 80px;
+      height: 80px;
+      margin-left: 10px;
+      margin-bottom: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+      border-radius: 4px;
+      text-align: center;
+
+      .img {
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+        padding: 6px 0 4px;
+      }
+      p {
+        width: 60px;
+        font-size: 12px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        margin: 0 auto;
+      }
+    }
+
+    &::after {
+      content: '';
+      display: block;
+      clear: both;
+    }
+  }
+}
