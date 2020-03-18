@@ -1,0 +1,20 @@
+.list-wrapper {
+  font-size: 28px;
+
+  .list {
+    padding: 20px 30px;
+  }
+
+  .item {
+    border-bottom: 1px solid #eee;
+    line-height: 80px;
+    color: #666;
+    list-style: none;
+  }
+
+  .empty {
+    line-height: 200px;
+    text-align: center;
+    color: #999;
+  }
+}

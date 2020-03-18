@@ -46,9 +46,10 @@ class CardList extends Component {
   }
 
   click(item) {
+    const { id } = item;
     this.props.history.push({
       pathname: `/detail/${item.id}`,
-      id: item.id
+      state: { id }
     });
   }
 

@@ -1,21 +1,22 @@
-import React, {Component} from 'react'
-import './index.scss'
+import React, { Component } from "react";
+import "./index.scss";
+import { Link } from 'react-router-dom';
 
 class Search extends Component {
-  constructor (props) {
-    super(props)
+  constructor(props) {
+    super(props);
     this.state = {
-      placeholder: '请输入搜索内容'
-    }
+      placeholder: "请输入搜索内容"
+    };
   }
 
-  render () {
+  render() {
     return (
       <div className="search">
-        <div className="tip">{this.state.placeholder}</div>
+        <Link to="/search" className="tip">{this.state.placeholder}</Link>
       </div>
-    )
+    );
   }
 }
 
-export default Search
+export default Search;

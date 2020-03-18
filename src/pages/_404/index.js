@@ -1,13 +1,16 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
+import TopNavBarPage from "../../layout/top-nav-page";
 
 class _404 extends Component {
   constructor(props) {
     super(props);
-    this.state = {  }
+    this.state = {
+      title: "出错了"
+    };
   }
-  render() { 
-    return ( <h3>404 未找到！</h3> );
+  render() {
+    return <TopNavBarPage title={this.state.title}>页面丢失了！</TopNavBarPage>;
   }
 }
- 
+
 export default _404;
