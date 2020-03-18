@@ -88,6 +88,7 @@
     ]
   },
   "devDependencies": {
+    "http-proxy-middleware": "^1.0.3",
     "postcss-px-to-viewport": "^1.1.1"
   },
   "jest": {

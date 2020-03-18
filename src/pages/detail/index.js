@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import TopNavBarPage from "../../layout/top-nav-page";
 import "./index.scss";
+import { queryHeroData } from "../../api/methods/hero";
 
 const heroData = {
   name: "卡特琳娜",
@@ -65,9 +66,20 @@ class Detail extends Component {
     };
   }
 
+  // 获取数据
+  async queryHeroData(id) {
+    let data = await queryHeroData({ id });
+    console.log(data);
+  }
+
   // 点击tab切换
   changeTab(index) {
     this.setState({ skillTabAct: index });
+  }
+
+  componentDidMount() {
+    const { id } = this.props.location.state;
+    this.queryHeroData(id);
   }
 
   UNSAFE_componentWillMount() {}
