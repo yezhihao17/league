@@ -5,14 +5,21 @@ import "./index.scss";
 class topNavBar extends Component {
   constructor(props) {
     super(props);
-    const { title } = props
+    const { title } = props;
     this.state = {
       title: title || "标题"
     };
   }
 
+  // 返回
   back() {
     this.props.history.goBack();
+  }
+
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    this.setState({
+      title: nextProps.title
+    });
   }
 
   render() {

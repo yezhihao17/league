@@ -1,8 +1,8 @@
 import axios from "axios";
-import Url from "./url";
+// import Url from "./url";
 
 const instance = axios.create({
-  baseURL: Url.baseUrl,
+  // baseURL: Url.baseUrl,
   timeout: 10000
 });
 
@@ -14,7 +14,11 @@ function fetch(url, data = {}, method = "GET") {
       data
     })
       .then(res => {
-        resolve(res);
+        if (res.status === 200) {
+          resolve(res.data);
+        } else {
+          reject(res.statusText);
+        }
       })
       .catch(err => {
         reject(err);

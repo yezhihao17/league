@@ -18,14 +18,19 @@
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
+      line-height: 54px;
     }
 
     .sub-title {
       width: 100%;
-      margin: 12px 0 20px;
+      height: 80px;
+      font-size: 28px;
+      line-height: 40px;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
       overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
+      -webkit-line-clamp: 2;
+      margin-bottom: 10px;
     }
 
     .cover {

@@ -4,44 +4,13 @@ import veiwIcon from "../../../images/icon/view.png";
 import commentIcon from "../../../images/icon/comment.png";
 import agreeIcon from "../../../images/icon/agree.png";
 import { withRouter } from "react-router-dom";
+import { queryHeroList } from "../../../api/methods/hero";
 
 class CardList extends Component {
   constructor() {
     super();
     this.state = {
-      list: [
-        {
-          title: "这是标题",
-          subtitle: "这是副标题",
-          cover:
-            "https://ossweb-img.qq.com/images/lol/web201310/skin/big91012.jpg",
-          comment: 50,
-          viewer: 100,
-          agree: 10,
-          id: 1
-        },
-        {
-          title: "这是标题2这是标题2这是标题2这是标题2这是标题2这是标题2",
-          subtitle:
-            "这是副标题这是副标题这是副标题这是副标题这是副标题这是副标题",
-          cover:
-            "https://ossweb-img.qq.com/images/lol/web201310/skin/big91012.jpg",
-          comment: 50,
-          viewer: 100,
-          agree: 10,
-          id: 2
-        },
-        {
-          title: "这是标题3",
-          subtitle: "这是副标题",
-          cover:
-            "https://ossweb-img.qq.com/images/lol/web201310/skin/big91012.jpg",
-          comment: 50,
-          viewer: 100,
-          agree: 10,
-          id: 3
-        }
-      ]
+      list: []
     };
   }
 
@@ -53,31 +22,55 @@ class CardList extends Component {
     });
   }
 
+  // 请求列表数据
+  async queryHeroList() {
+    let data = await queryHeroList();
+    if (data.code === 1000) {
+      this.setState({
+        list: data.data
+      });
+    }
+  }
+
+  componentDidMount() {
+    this.queryHeroList();
+  }
+
   render() {
+    let { list } = this.state;
     return (
       <ul className="card-list">
-        {this.state.list.map((item, index) => {
+        {list.map((item, index) => {
           return (
             <li
               className="card"
               key={index}
               onClick={this.click.bind(this, item)}
             >
-              <h3 className="title"> {item.title} </h3>
-              <h4 className="sub-title"> {item.subtitle} </h4>
+              <h3 className="title">
+                {" "}
+                {item.name}（{item.nickName}）{" "}
+              </h3>
+              <h4
+                className="sub-title"
+                dangerouslySetInnerHTML={{ __html: item.description }}
+              ></h4>
               <img src={item.cover} className="cover" alt="" />
               <div className="cover-data">
                 <div className="data">
                   <img src={veiwIcon} className="icon" alt="" />
-                  <span> {item.viewer} </span>
+                  {/* <span> {item.viewer} </span> */}
+                  <span>152</span>
                 </div>
                 <div className="data">
                   <img src={commentIcon} className="icon" alt="" />
-                  <span> {item.comment} </span>
+                  {/* <span> {item.comment} </span> */}
+                  <span>21</span>
                 </div>
                 <div className="data">
                   <img src={agreeIcon} className="icon" alt="" />
-                  <span> {item.agree} </span>
+                  {/* <span> {item.agree} </span> */}
+                  <span>66</span>
                 </div>
               </div>
             </li>

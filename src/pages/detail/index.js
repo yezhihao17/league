@@ -1,68 +1,82 @@
 import React, { Component } from "react";
 import TopNavBarPage from "../../layout/top-nav-page";
 import "./index.scss";
-import { queryHeroData } from "../../api/methods/hero";
+import {
+  queryHeroData,
+  queryHeroList,
+  queryHero
+} from "../../api/methods/hero";
 
-const heroData = {
-  name: "卡特琳娜",
-  cover: "https://ossweb-img.qq.com/images/lol/web201310/skin/big91012.jpg", // 封面图
-  style: ["ADC", "射手"],
-  ability: {
-    attack: 10, // 攻击
-    magic: 3, // 法术
-    defence: 3, // 防御
-    control: 5 // 操作控制
-  },
-  essencePrice: 6300, // 精粹价格
-  price: 4500, // 卡券
-  skill: [
-    {
-      keyboard: "被动",
-      icon: "https://ossweb-img.qq.com/images/lol/web201310/skin/big91012.jpg",
-      desc: "被动技能"
-    },
-    {
-      keyboard: "Q",
-      icon: "https://ossweb-img.qq.com/images/lol/web201310/skin/big91012.jpg",
-      desc: "QQQ这是技能描述这是技能描述这是技能描述这是技能描述这是技能描述"
-    },
-    {
-      keyboard: "W",
-      icon: "https://ossweb-img.qq.com/images/lol/web201310/skin/big91012.jpg",
-      desc: "WWWW这是技能描述这是技能描述这是技能描述这是技能描述这是技能描述"
-    },
-    {
-      keyboard: "E",
-      icon: "https://ossweb-img.qq.com/images/lol/web201310/skin/big91012.jpg",
-      desc: "EEEE这是技能描述这是技能描述这是技能描述这是技能描述这是技能描述"
-    },
-    {
-      keyboard: "R",
-      icon: "https://ossweb-img.qq.com/images/lol/web201310/skin/big91012.jpg",
-      desc: "RRRRRR这是技能描述这是技能描述这是技能描述这是技能描述这是技能描述"
-    }
-  ], // 技能
-  skin: [
-    {
-      image: "https://ossweb-img.qq.com/images/lol/web201310/skin/big91012.jpg",
-      name: "按时地方囧",
-      price: 9900
-    },
-    {
-      image: "https://ossweb-img.qq.com/images/lol/web201310/skin/big91012.jpg",
-      name: "按时地方囧",
-      price: 9900
-    }
-  ] // 皮肤
-};
+// const heroData = {
+//   name: "卡特琳娜",
+//   cover: "https://ossweb-img.qq.com/images/lol/web201310/skin/big91012.jpg", // 封面图
+//   style: ["ADC", "射手"],
+//   ability: {
+//     attack: 10, // 攻击
+//     magic: 3, // 法术
+//     defence: 3, // 防御
+//     control: 5 // 操作控制
+//   },
+//   essencePrice: 6300, // 精粹价格
+//   price: 4500, // 卡券
+//   skills: [
+//     {
+//       keyboard: "被动",
+//       abilityIconPath:
+//         "https://ossweb-img.qq.com/images/lol/web201310/skin/big91012.jpg",
+//       description: "被动技能"
+//     },
+//     {
+//       keyboard: "Q",
+//       abilityIconPath:
+//         "https://ossweb-img.qq.com/images/lol/web201310/skin/big91012.jpg",
+//       description:
+//         "QQQ这是技能描述这是技能描述这是技能描述这是技能描述这是技能描述"
+//     },
+//     {
+//       keyboard: "W",
+//       abilityIconPath:
+//         "https://ossweb-img.qq.com/images/lol/web201310/skin/big91012.jpg",
+//       description:
+//         "WWWW这是技能描述这是技能描述这是技能描述这是技能描述这是技能描述"
+//     },
+//     {
+//       keyboard: "E",
+//       abilityIconPath:
+//         "https://ossweb-img.qq.com/images/lol/web201310/skin/big91012.jpg",
+//       description:
+//         "EEEE这是技能描述这是技能描述这是技能描述这是技能描述这是技能描述"
+//     },
+//     {
+//       keyboard: "R",
+//       abilityIconPath:
+//         "https://ossweb-img.qq.com/images/lol/web201310/skin/big91012.jpg",
+//       description:
+//         "RRRRRR这是技能描述这是技能描述这是技能描述这是技能描述这是技能描述"
+//     }
+//   ], // 技能
+//   skins: [
+//     {
+//       image: "https://ossweb-img.qq.com/images/lol/web201310/skin/big91012.jpg",
+//       name: "按时地方囧",
+//       price: 9900
+//     },
+//     {
+//       image: "https://ossweb-img.qq.com/images/lol/web201310/skin/big91012.jpg",
+//       name: "按时地方囧",
+//       price: 9900
+//     }
+//   ] // 皮肤
+// };
 
 class Detail extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: heroData?.name ?? "标题",
-      heroData: heroData,
-      skillTabAct: 0
+      title: "标题",
+      heroData: null,
+      skillTabAct: 0,
+      content: "<p>内容</p>"
     };
   }
 
@@ -72,22 +86,103 @@ class Detail extends Component {
     console.log(data);
   }
 
+  // 测试请求
+  async queryHeroList() {
+    let data = await queryHeroList();
+    console.log(data);
+  }
+
+  // 请求英雄数据
+  async queryHero(id) {
+    let data = await queryHero(id);
+    if (data.code === 1000) {
+      const { hero, skins, spells } = data.data;
+      let heroData = {
+        name: hero.name,
+        cover: skins[0].mainImg,
+        style: hero.roles,
+        ability: {
+          attack: hero.attack, // 攻击
+          magic: hero.magic, // 法术
+          defence: hero.defense, // 防御
+          control: hero.difficulty // 操作控制
+        },
+        essencePrice: 6300,
+        price: 4500,
+        skills: this.sortSkills(spells),
+        skins: skins,
+        description: hero.shortBio
+      };
+      let title = `${hero.name}（${hero.title}）`;
+      console.log(title);
+      this.setState({
+        heroData,
+        title
+      });
+    }
+  }
+
   // 点击tab切换
   changeTab(index) {
     this.setState({ skillTabAct: index });
   }
 
+  // // 过滤快捷键
+  // fileterKeyboard(data) {
+  //   let keyboard = data.toLocaleUpperCase();
+  //   if (data === "passive") {
+  //     keyboard = "被动";
+  //   }
+  //   return <p>快捷键：${keyboard}</p>;
+  // }
+
+  // 技能排序
+  sortSkills(data) {
+    let newList = new Array(5);
+    for (let i = 0; i < data.length; i++) {
+      let spellKey = data[i].spellKey.toLocaleUpperCase();
+      let index = 0;
+      if (spellKey === "PASSIVE") {
+        index = 0;
+      } else if (spellKey === "Q") {
+        index = 1;
+      } else if (spellKey === "W") {
+        index = 2;
+      } else if (spellKey === "E") {
+        index = 3;
+      } else {
+        index = 4;
+      }
+      newList[index] = data[i];
+    }
+    return newList;
+  }
+
   componentDidMount() {
     const { id } = this.props.location.state;
-    this.queryHeroData(id);
+    // this.queryHeroData(id);
+    // this.queryHeroList();
+
+    this.queryHero(id);
   }
 
   UNSAFE_componentWillMount() {}
 
   render() {
     const { heroData } = this.state;
-    return (
-      <TopNavBarPage title={this.state.title}>
+    let ele = <h3>加载中</h3>;
+
+    // 过滤快捷键
+    let fileterKeyboard = function(data) {
+      let keyboard = data.toLocaleUpperCase();
+      if (data === "passive") {
+        keyboard = "被动";
+      }
+      return <p>快捷键：{keyboard}</p>;
+    };
+
+    if (heroData) {
+      ele = (
         <div className="detail-container">
           <div className="hero">
             {/* 图片 */}
@@ -128,7 +223,7 @@ class Detail extends Component {
           <div className="skill section">
             <p className="title">技能</p>
             <ul className="tabs">
-              {heroData.skill.map((item, index) => {
+              {heroData.skills.map((item, index) => {
                 return (
                   <li
                     key={index}
@@ -138,13 +233,20 @@ class Detail extends Component {
                     }
                     onClick={this.changeTab.bind(this, index)}
                   >
-                    <img src={item.icon} alt="" className="skill-icon" />
+                    <img
+                      src={item.abilityIconPath}
+                      alt=""
+                      className="skill-icon"
+                    />
                   </li>
                 );
               })}
             </ul>
             <div className="skill-desc">
-              {heroData.skill[this.state.skillTabAct].desc}
+              {fileterKeyboard(
+                heroData.skills[this.state.skillTabAct].spellKey
+              )}
+              {heroData.skills[this.state.skillTabAct].description}
             </div>
           </div>
           <div className="skin section">
@@ -152,12 +254,16 @@ class Detail extends Component {
             <div className="skin-wrapper test">开发中...</div>
           </div>
           <div className="story section">
-            <p className="title">英雄背景故事</p>
-            <div className="story-wrapper test">开发中...</div>
+            <p className="title">英雄介绍</p>
+            <div
+              className="story-wrapper test"
+              dangerouslySetInnerHTML={{ __html: heroData.description }}
+            ></div>
           </div>
         </div>
-      </TopNavBarPage>
-    );
+      );
+    }
+    return <TopNavBarPage title={this.state.title}>{ele}</TopNavBarPage>;
   }
 }
 
