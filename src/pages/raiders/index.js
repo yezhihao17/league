@@ -4,50 +4,45 @@ import Search from "../../components/search";
 import SideBar from "../../components/side-bar";
 import "./index.scss";
 import { withRouter } from "react-router-dom";
+import { queryMaterialList } from "../../api/methods/material";
 
 class Raiders extends Component {
   constructor() {
     super();
     this.state = {
+      searchType: 1,
       tabbarAct: 1,
-      list: [
-        "我们说的呀",
-        "我们说的呀",
-        "我们说的呀",
-        "我们说的呀",
-        "我们说的呀",
-        "我们说的呀",
-        "我们说的呀",
-        "我们说的呀",
-        "我们说的呀",
-        "我们说的呀",
-        "我们说的呀",
-        "我们说的呀",
-        "我们说的呀",
-        "我们说的呀",
-        "我们说的呀",
-        "我们说的呀",
-        "我们说的呀",
-        "我们说的呀",
-        "我们说的呀",
-        "我们说的呀",
-        "我们说的呀",
-        "我们说的呀"
-      ]
+      list: []
     };
   }
 
-  handler(id) {
+  // 获取物品列表
+  async queryMaterialList() {
+    let data = await queryMaterialList();
+    if (data.code === 1000) {
+      this.setState({ list: data.data });
+    }
+  }
+
+  handler(item) {
+    const { id, name } = item;
     this.props.history.push({
       pathname: `/material-detail/${id}`,
-      state: { id }
+      state: {
+        id,
+        title: name
+      }
     });
+  }
+
+  UNSAFE_componentWillMount() {
+    this.queryMaterialList();
   }
 
   render() {
     return (
       <Layout action={this.state.tabbarAct}>
-        <Search name="攻略"></Search>
+        <Search type={this.state.searchType}></Search>
         <div className="content">
           <SideBar></SideBar>
           <div className="wrapper">
@@ -57,14 +52,10 @@ class Raiders extends Component {
                   <li
                     key={index}
                     className="item"
-                    onClick={this.handler.bind(this, index)}
+                    onClick={this.handler.bind(this, item)}
                   >
-                    <img
-                      src="https://ossweb-img.qq.com/images/lol/web201310/skin/big91012.jpg"
-                      alt=""
-                      className="img"
-                    />
-                    <p>物品名字物品名字</p>
+                    <img src={item.iconPath} alt="" className="img" />
+                    <p>{item.name}</p>
                   </li>
                 );
               })}

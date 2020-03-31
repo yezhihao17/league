@@ -1,5 +1,10 @@
-const defaultState = {};
+import { combineReducers } from "redux";
+import * as home from "./home";
+import * as user from "./user";
 
-export default (state = defaultState, action) => {
-  return state;
-};
+const reducers = combineReducers({
+  ...home,
+  ...user
+});
+
+export default reducers;

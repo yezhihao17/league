@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import Layout from "../../layout/tabbar-page";
 import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { setNickName } from "../../store/user/action";
 import "./index.scss";
 
 class My extends Component {
@@ -32,6 +34,15 @@ class My extends Component {
     });
   }
 
+  // 设置用户昵称
+  setUserNickName() {
+    let random = Math.random();
+    let nickName = random > 0.5 ? "无极剑圣" : "路人甲";
+    this.props.setNickName(nickName);
+  }
+
+  UNSAFE_componentWillMount() {}
+
   render() {
     return (
       <Layout action={this.state.tabbarAct}>
@@ -39,13 +50,14 @@ class My extends Component {
           <div className="user-info">
             <div className="avatar-wrapper">
               <img
-                src="https://ossweb-img.qq.com/images/lol/web201310/skin/big91012.jpg"
+                src={this.props.userInfo.avatar}
                 alt=""
                 className="avatar"
+                onClick={this.setUserNickName.bind(this)}
               />
             </div>
             <div className="info-wrapper">
-              <p className="name">游客</p>
+              <p className="name">{this.props.userInfo.nickName}</p>
             </div>
           </div>
           <ul className="list-wrapper">
@@ -63,4 +75,16 @@ class My extends Component {
   }
 }
 
-export default withRouter(My);
+function mapStateToProps(state) {
+  return {
+    userInfo: state.userInfo
+  };
+}
+
+function mapDispatchToProps(dispath) {
+  return {
+    setNickName: data => dispath(setNickName(data))
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(My));

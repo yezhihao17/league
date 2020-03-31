@@ -13,7 +13,12 @@ class Search extends Component {
   render() {
     return (
       <div className="search">
-        <Link to="/search" className="tip">{this.state.placeholder}</Link>
+        <Link to={{
+          pathname: "/search",
+          state: {
+            type: this.props.type
+          }
+        }} className="tip">{this.state.placeholder}</Link>
       </div>
     );
   }

@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import TopNavBarPage from "../../layout/top-nav-page";
 import "./index.scss";
 import {
-  queryHeroData,
   queryHeroList,
   queryHero
 } from "../../api/methods/hero";
@@ -80,13 +79,7 @@ class Detail extends Component {
     };
   }
 
-  // 获取数据
-  async queryHeroData(id) {
-    let data = await queryHeroData({ id });
-    console.log(data);
-  }
-
-  // 测试请求
+  // 列表数据
   async queryHeroList() {
     let data = await queryHeroList();
     console.log(data);

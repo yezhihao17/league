@@ -1,3 +1,94 @@
-.meterial-detail {
-  background-color: #fff;
+.material-detail {
+  background-color: #eee;
+
+  .section {
+    background-color: #fff;
+    margin-bottom: 20px;
+    padding: 0 30px 20px;
+
+    .title {
+      display: flex;
+      align-items: center;
+      height: 100px;
+      font-size: 32px;
+      line-height: 100px;
+      overflow: hidden;
+
+      &::before {
+        display: block;
+        content: "";
+        width: 6px;
+        height: 34px;
+        background-color: #e54d42;
+        border-radius: 6px;
+        margin-right: 10px;
+      }
+    }
+  }
+
+  .base-info {
+    display: flex;
+    align-items: center;
+    height: 200px;
+    padding: 0 30px;
+
+    .material-img {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      margin-right: 20px;
+      border-radius: 6px;
+    }
+
+    .info {
+      h3 {
+        width: 100%;
+        font-size: 32px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        margin-bottom: 16px;
+      }
+
+      h4 {
+        height: 64px;
+        font-size: 28px;
+        line-height: 32px;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+        color: #666;
+      }
+    }
+  }
+
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 24px;
+
+    li {
+      width: 100px;
+      margin-right: 10px;
+      margin-bottom: 10px;
+
+      img {
+        display: block;
+        width: 80px;
+        height: 80px;
+        border-radius: 6px;
+        margin: 0 auto;
+      }
+
+      p {
+        width: 100%;
+        line-height: 40px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        text-align: center;
+      }
+    }
+  }
 }

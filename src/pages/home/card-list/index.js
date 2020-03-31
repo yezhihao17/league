@@ -4,11 +4,11 @@ import veiwIcon from "../../../images/icon/view.png";
 import commentIcon from "../../../images/icon/comment.png";
 import agreeIcon from "../../../images/icon/agree.png";
 import { withRouter } from "react-router-dom";
-import { queryHeroList } from "../../../api/methods/hero";
+// import { queryHeroList } from "../../../api/methods/hero";
 
 class CardList extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       list: []
     };
@@ -22,22 +22,26 @@ class CardList extends Component {
     });
   }
 
-  // 请求列表数据
-  async queryHeroList() {
-    let data = await queryHeroList();
-    if (data.code === 1000) {
-      this.setState({
-        list: data.data
-      });
-    }
-  }
+  // // 请求列表数据
+  // async queryHeroList() {
+  //   let data = await queryHeroList();
+  //   if (data.code === 1000) {
+  //     this.setState({
+  //       list: data.data
+  //     });
+  //   }
+  // }
 
-  componentDidMount() {
-    this.queryHeroList();
-  }
+  // componentDidMount() {
+  //   this.queryHeroList();
+  // }
+
+  // componentWillUnmount() {
+  //   // this.init = true;
+  // }
 
   render() {
-    let { list } = this.state;
+    let { list } = this.props;
     return (
       <ul className="card-list">
         {list.map((item, index) => {
